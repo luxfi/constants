@@ -15,17 +15,23 @@ import (
 
 // Const variables to be exported
 const (
-	// Standard network IDs (for compatibility)
-	LocalID    uint32 = 1337
+	// Network IDs (P-Chain) - these identify the PRIMARY NETWORK
 	MainnetID  uint32 = 1
-	TestnetID  uint32 = 5
+	TestnetID  uint32 = 2
+	DevnetID   uint32 = 3
+	LocalID    uint32 = 1337
 	UnitTestID uint32 = 369
 
-	// Lux Network IDs
-	// These are the PRIMARY NETWORK identifiers for the entire Lux blockchain
-	// All chains (P, X, C, Q, etc.) run on these networks
-	LuxMainnetID uint32 = 96369 // Lux mainnet - production network
-	LuxTestnetID uint32 = 96368 // Lux testnet - test network (C-Chain EVM chain ID)
+	// Chain IDs (C-Chain EVM) - these identify the EVM chain for wallets/dApps
+	// Can be used as aliases for Network IDs in GetGenesis() calls
+	MainnetChainID uint32 = 96369
+	TestnetChainID uint32 = 96368
+	DevnetChainID  uint32 = 96370
+	LocalChainID   uint32 = 1337
+
+	// Aliases for backward compatibility (deprecated - use MainnetChainID etc)
+	LuxMainnetID = MainnetChainID
+	LuxTestnetID = TestnetChainID
 
 	// Q-Chain Network IDs (Quantum-resistant chain)
 	QChainMainnetID uint32 = 36963 // Q-Chain mainnet
@@ -35,6 +41,7 @@ const (
 	LocalName    = "local"
 	MainnetName  = "mainnet"
 	TestnetName  = "testnet"
+	DevnetName   = "devnet"
 	UnitTestName = "testing"
 
 	// HRP (Human Readable Part) for bech32 addresses
@@ -43,6 +50,7 @@ const (
 	LocalHRP    = "local"  // local1... for local development
 	MainnetHRP  = "lux"    // lux1... for mainnet
 	TestnetHRP  = "test"   // test1... for testnet
+	DevnetHRP   = "dev"    // dev1... for devnet
 	UnitTestHRP = "testing"
 )
 
@@ -67,44 +75,52 @@ var (
 	KChainID = ids.KChainID // K-Chain: 11111111111111111111111111111111K (KMS) - COMING SOON
 
 	// NetworkIDToNetworkName maps network IDs to human-readable names
+	// Includes both network IDs (1,2,3) and chain ID aliases (96369,96368,96370)
 	NetworkIDToNetworkName = map[uint32]string{
-		LocalID:      LocalName,
-		MainnetID:    MainnetName,
-		TestnetID:    TestnetName,
-		UnitTestID:   UnitTestName,
-		LuxMainnetID: MainnetName, // 96369 -> "mainnet"
-		LuxTestnetID: TestnetName, // 96368 -> "testnet"
+		MainnetID:      MainnetName,
+		TestnetID:      TestnetName,
+		DevnetID:       DevnetName,
+		LocalID:        LocalName,
+		UnitTestID:     UnitTestName,
+		MainnetChainID: MainnetName, // 96369 -> "mainnet" (alias)
+		TestnetChainID: TestnetName, // 96368 -> "testnet" (alias)
+		DevnetChainID:  DevnetName,  // 96370 -> "devnet" (alias)
 	}
 
 	// NetworkNameToNetworkID maps names to network IDs
 	NetworkNameToNetworkID = map[string]uint32{
-		LocalName:    LocalID,
 		MainnetName:  MainnetID,
 		TestnetName:  TestnetID,
+		DevnetName:   DevnetID,
+		LocalName:    LocalID,
 		UnitTestName: UnitTestID,
 	}
 
 	// NetworkIDToHRP maps network IDs to bech32 HRP (Human Readable Part)
 	// This determines the address prefix: P-lux1..., P-test1..., P-local1..., P-custom1...
+	// Includes both network IDs and chain ID aliases
 	NetworkIDToHRP = map[uint32]string{
-		LocalID:      LocalHRP,    // local1...
-		MainnetID:    MainnetHRP,  // lux1...
-		TestnetID:    TestnetHRP,  // test1...
-		UnitTestID:   UnitTestHRP, // testing1...
-		LuxMainnetID: MainnetHRP,  // 96369 -> lux1...
-		LuxTestnetID: TestnetHRP,  // 96368 -> test1...
+		MainnetID:      MainnetHRP,  // lux1...
+		TestnetID:      TestnetHRP,  // test1...
+		DevnetID:       DevnetHRP,   // dev1...
+		LocalID:        LocalHRP,    // local1...
+		UnitTestID:     UnitTestHRP, // testing1...
+		MainnetChainID: MainnetHRP,  // 96369 -> lux1... (alias)
+		TestnetChainID: TestnetHRP,  // 96368 -> test1... (alias)
+		DevnetChainID:  DevnetHRP,   // 96370 -> dev1... (alias)
 	}
 
 	// NetworkHRPToNetworkID maps HRP back to network ID
 	NetworkHRPToNetworkID = map[string]uint32{
-		LocalHRP:    LocalID,
 		MainnetHRP:  MainnetID,
 		TestnetHRP:  TestnetID,
+		DevnetHRP:   DevnetID,
+		LocalHRP:    LocalID,
 		UnitTestHRP: UnitTestID,
 	}
 
 	// ProductionNetworkIDs are networks that should use production-grade settings
-	ProductionNetworkIDs = set.Of(MainnetID, TestnetID, LuxMainnetID, LuxTestnetID)
+	ProductionNetworkIDs = set.Of(MainnetID, TestnetID, MainnetChainID, TestnetChainID)
 
 	ValidNetworkPrefix = "network-"
 
