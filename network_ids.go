@@ -24,6 +24,11 @@ const (
 	CustomID   uint32 = 1337 // custom local development network
 	UnitTestID uint32 = 369
 
+	// Backwards compatibility aliases (deprecated - use MainnetID, TestnetID, CustomID)
+	LuxMainnetID = MainnetID
+	LuxTestnetID = TestnetID
+	LocalID      = CustomID
+
 	// Chain IDs (C-Chain EVM) - these identify the EVM chain for wallets/dApps
 	MainnetChainID uint32 = 96369
 	TestnetChainID uint32 = 96368
