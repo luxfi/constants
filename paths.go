@@ -42,17 +42,53 @@ const (
 	// BinDir is the subdirectory for binaries
 	BinDir = "bin"
 
+	// LuxCliBinDir is an alias for BinDir (backward compatibility with CLI)
+	LuxCliBinDir = BinDir
+
 	// SnapshotsDir is the subdirectory for network snapshots
 	SnapshotsDir = "snapshots"
+
+	// SnapshotsDirName is an alias for SnapshotsDir
+	SnapshotsDirName = SnapshotsDir
 
 	// RunsDir is the subdirectory for runtime data
 	RunsDir = "runs"
 
+	// RunDir is an alias for RunsDir (backward compatibility with CLI)
+	RunDir = RunsDir
+
 	// PluginsDir is the subdirectory for VM plugins
 	PluginsDir = "plugins"
 
+	// PluginDir is an alias for PluginsDir
+	PluginDir = PluginsDir
+
 	// LogDir is the subdirectory for logs
 	LogDir = "logs"
+
+	// ConfigDir is the subdirectory for configuration
+	ConfigDir = "config"
+
+	// KeyDir is the subdirectory for keys
+	KeyDir = "keys"
+
+	// ChainsDir is the subdirectory for chain definitions
+	ChainsDir = "chains"
+
+	// NetworksDir is the subdirectory for network state
+	NetworksDir = "networks"
+
+	// CustomVMDir is the subdirectory for custom VMs
+	CustomVMDir = "customvms"
+
+	// ReposDir is the subdirectory for repositories
+	ReposDir = "repos"
+
+	// LPMDir is the subdirectory for LPM
+	LPMDir = ".lpm"
+
+	// LPMPluginDir is the subdirectory for LPM plugins
+	LPMPluginDir = "lpm-plugins"
 )
 
 // File permissions
