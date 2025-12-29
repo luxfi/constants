@@ -17,6 +17,7 @@ const (
 	GRPCPortMainnet = 8369 // mainnet gRPC server (chain ID 96369)
 	GRPCPortDevnet  = 8370 // devnet gRPC server (chain ID 96370)
 	GRPCPortCustom  = 8371 // custom network gRPC server (chainID 1337)
+	GRPCPortDev     = 8546 // dev mode gRPC server (Anvil-compatible, HTTP on 8545)
 
 	// Aliases for backward compatibility
 	// "local" is deprecated, use "custom" instead
@@ -28,12 +29,14 @@ const (
 	GRPCGatewayPortMainnet = 8379 // mainnet gateway
 	GRPCGatewayPortDevnet  = 8380 // devnet gateway
 	GRPCGatewayPortCustom  = 8381 // custom gateway
+	GRPCGatewayPortDev     = 8556 // dev mode gateway
 
 	// Node API base ports
 	NodePortMainnet = 9630 // mainnet first node API port
 	NodePortTestnet = 9640 // testnet first node API port
 	NodePortDevnet  = 9650 // devnet first node API port
 	NodePortCustom  = 9660 // custom network first node API port (chainID 1337)
+	NodePortDev     = 8545 // dev mode single-node (Anvil-compatible)
 
 	// gRPC client configuration
 	GRPCClientLogLevel = "error"
@@ -63,6 +66,8 @@ func GetGRPCPorts(networkType string) NetworkGRPCPorts {
 		return NetworkGRPCPorts{Server: GRPCPortTestnet, Gateway: GRPCGatewayPortTestnet}
 	case "devnet":
 		return NetworkGRPCPorts{Server: GRPCPortDevnet, Gateway: GRPCGatewayPortDevnet}
+	case "dev":
+		return NetworkGRPCPorts{Server: GRPCPortDev, Gateway: GRPCGatewayPortDev}
 	case "custom", "local": // "local" is deprecated alias for "custom"
 		return NetworkGRPCPorts{Server: GRPCPortCustom, Gateway: GRPCGatewayPortCustom}
 	default:
@@ -81,6 +86,8 @@ func GetNetworkStateFile(networkType string) string {
 		return "testnet_network_state.json"
 	case "devnet":
 		return "devnet_network_state.json"
+	case "dev":
+		return "dev_network_state.json"
 	case "custom", "local": // "local" is deprecated alias for "custom"
 		return "custom_network_state.json"
 	default:
@@ -91,8 +98,9 @@ func GetNetworkStateFile(networkType string) string {
 // ValidNetworkTypes returns all valid network types
 // mainnet, testnet, devnet: proper public networks (can also run locally)
 // custom: for custom local development with chainID 1337
+// dev: single-node Anvil-compatible mode on port 8545
 func ValidNetworkTypes() []string {
-	return []string{"mainnet", "testnet", "devnet", "custom"}
+	return []string{"mainnet", "testnet", "devnet", "custom", "dev"}
 }
 
 // IsValidNetworkType checks if the network type is valid
@@ -128,6 +136,13 @@ func GetNetworkPorts(networkType string) NetworkPorts {
 			Gateway:   GRPCGatewayPortDevnet,
 			NodeBase:  NodePortDevnet,
 			NetworkID: 96370, // devnet network ID
+		}
+	case "dev":
+		return NetworkPorts{
+			GRPC:      GRPCPortDev,
+			Gateway:   GRPCGatewayPortDev,
+			NodeBase:  NodePortDev,
+			NetworkID: CustomID, // 1337 for dev mode (Anvil-compatible)
 		}
 	case "custom", "local": // "local" is deprecated alias for "custom"
 		return NetworkPorts{
