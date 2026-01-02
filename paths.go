@@ -89,6 +89,10 @@ const (
 
 	// LPMPluginDir is the subdirectory for LPM plugins
 	LPMPluginDir = "lpm-plugins"
+
+	// DevDir is the subdirectory for dev mode data
+	// Used by 'lux dev start' for single-node development
+	DevDir = "dev"
 )
 
 // File permissions
