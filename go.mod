@@ -1,4 +1,4 @@
-module github.com/luxfi/const
+module github.com/luxfi/constants
 
 go 1.25.5
 
