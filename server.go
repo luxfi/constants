@@ -40,7 +40,7 @@ const (
 
 	// gRPC client configuration
 	GRPCClientLogLevel = "error"
-	GRPCDialTimeout    = 3 * time.Second // Fast dial for local networks
+	GRPCDialTimeout    = 5 * time.Second // Reduced for faster local development
 )
 
 // NetworkGRPCPorts holds gRPC port configuration for a network type

@@ -48,10 +48,10 @@ const (
 
 	// HRP (Human Readable Part) for bech32 addresses
 	// Used to format P-chain and X-chain addresses like P-lux1..., X-test1...
-	MainnetHRP  = "lux"     // lux1... for mainnet
-	TestnetHRP  = "test"    // test1... for testnet
-	DevnetHRP   = "dev"     // dev1... for devnet
-	CustomHRP   = "custom"  // custom1... for custom local development
+	MainnetHRP  = "lux"    // lux1... for mainnet
+	TestnetHRP  = "test"   // test1... for testnet
+	DevnetHRP   = "dev"    // dev1... for devnet
+	CustomHRP   = "custom" // custom1... for custom local development
 	UnitTestHRP = "testing"
 )
 
@@ -71,9 +71,9 @@ var (
 	BChainID = ids.BChainID // B-Chain: 11111111111111111111111111111111B
 	TChainID = ids.TChainID // T-Chain: 11111111111111111111111111111111T
 	ZChainID = ids.ZChainID // Z-Chain: 11111111111111111111111111111111Z (Zero-knowledge)
-	GChainID = ids.GChainID // G-Chain: 11111111111111111111111111111111G (Graph/dgraph) - COMING SOON
-	IChainID = ids.IChainID // I-Chain: 11111111111111111111111111111111I (Identity) - COMING SOON
-	KChainID = ids.KChainID // K-Chain: 11111111111111111111111111111111K (KMS) - COMING SOON
+	GChainID = ids.GChainID // G-Chain: 11111111111111111111111111111111G (Graph/dgraph)
+	KChainID = ids.KChainID // K-Chain: 11111111111111111111111111111111K (KMS)
+	DChainID = ids.DChainID // D-Chain: 11111111111111111111111111111111D (DEX)
 
 	// NetworkIDToNetworkName maps network IDs to human-readable names
 	// Note: CustomID == CustomChainID (1337), so only one entry needed
@@ -126,6 +126,8 @@ var (
 	ValidNetworkPrefix = "network-"
 
 	ErrParseNetworkName = errors.New("failed to parse network name")
+	ErrNetworkNotFound  = errors.New("network not found in registry")
+	ErrUnknownChain     = errors.New("unknown chain name")
 )
 
 // GetHRP returns the Human-Readable-Part of bech32 addresses for a networkID
