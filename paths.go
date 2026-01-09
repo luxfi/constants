@@ -42,6 +42,9 @@ const (
 	// BinDir is the subdirectory for binaries
 	BinDir = "bin"
 
+	// NetDir is the subdirectory for network data
+	NetDir = "net"
+
 	// LuxCliBinDir is an alias for BinDir (backward compatibility with CLI)
 	LuxCliBinDir = BinDir
 
@@ -100,6 +103,18 @@ const (
 	DefaultPerms755    = 0o755
 	WriteReadReadPerms = 0o644
 	WriteReadOnlyPerms = 0o600
+)
+
+// File names and extensions
+const (
+	// ElasticNetConfigFileName is the filename for elastic network config
+	ElasticNetConfigFileName = "elastic.json"
+
+	// LPMLogName is the filename for LPM logs
+	LPMLogName = "lpm.log"
+
+	// UpgradeBytesLockExtension is the lock file extension for upgrade bytes
+	UpgradeBytesLockExtension = ".lock"
 )
 
 // API endpoints
