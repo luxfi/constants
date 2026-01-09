@@ -16,6 +16,7 @@ const (
 	NetrunnerLocalNetworkID   = CustomID // 1337 - same as CustomID for netrunner
 	AvalancheLocalNetworkID   = 31337    // Avalanche's local network ID
 	LocalNetworkNumNodes      = 5
+	LocalName                 = "local"  // Name for local network
 
 	// Staking constants
 	MinStakeDuration     = 24 * 14 * time.Hour  // 2 weeks
