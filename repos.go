@@ -13,6 +13,7 @@ const (
 	EVMRepoName       = "evm"
 	NetrunnerRepoName = "netrunner"
 	CLIRepoName       = "cli"
+	CliRepoName       = CLIRepoName
 	ConstantsRepoName = "constants"
 	SDKRepoName       = "sdk"
 	WalletRepoName    = "wallet"
@@ -32,6 +33,8 @@ const (
 
 	// EVMBinaryName is the name of the EVM plugin
 	EVMBinaryName = "evm"
+	// EVMBin is a compatibility alias for EVMBinaryName.
+	EVMBin = EVMBinaryName
 
 	// CLIBinaryName is the name of the CLI executable
 	CLIBinaryName = "lux"
