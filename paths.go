@@ -100,9 +100,10 @@ const (
 
 // File permissions
 const (
-	DefaultPerms755    = 0o755
-	WriteReadReadPerms = 0o644
-	WriteReadOnlyPerms = 0o600
+	DefaultPerms755           = 0o755
+	WriteReadReadPerms        = 0o644
+	WriteReadOnlyPerms        = 0o600
+	UserOnlyWriteReadExecPerms = 0o700 // User read/write/execute only
 )
 
 // File names and extensions
