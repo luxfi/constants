@@ -7,7 +7,7 @@ import "errors"
 
 var (
 	ErrNoBlockchainID                 = errors.New("\n\nNo blockchainID found. To resolve this:\n- Use 'lux blockchain deploy' to deploy the blockchain and generate a blockchainID.\n- Or use 'lux blockchain import' to import an existing configuration.\n") //nolint:staticcheck // ST1005: intentional formatting for user-friendly error messages
-	ErrNoSubnetID                     = errors.New("\n\nNo subnetID found. To resolve this:\n- Use 'lux blockchain deploy' to create the subnet and generate a subnetID.\n- Or use 'lux blockchain import' to import an existing configuration.\n")             //nolint:staticcheck // ST1005: intentional formatting for user-friendly error messages
+	ErrNoChainID                      = errors.New("\n\nNo chainID found. To resolve this:\n- Use 'lux blockchain deploy' to create the chain and generate a chainID.\n- Or use 'lux blockchain import' to import an existing configuration.\n")                //nolint:staticcheck // ST1005: intentional formatting for user-friendly error messages
 	ErrInvalidValidatorManagerAddress = errors.New("invalid validator manager address")
 	ErrKeyNotFoundOnMap               = errors.New("key not found on map")
 )
