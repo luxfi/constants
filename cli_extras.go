@@ -160,7 +160,7 @@ const (
 	VMDir             = "vms"
 
 	// CLI-specific directories (not in shared constants)
-	CurrentPluginDir = "plugins/current" // Active plugins symlinked here
+	CurrentPluginDir = "current" // Active plugins symlinked here (under PluginDir)
 	DashboardsDir    = "dashboards"
 	ChainConfigDir   = "chains"
 
@@ -168,7 +168,7 @@ const (
 	ChainConfigFile         = "config.json"  // Chain-specific config (eth-apis, etc.)
 	UnifiedChainGenesisFile = "genesis.json" // Chain genesis
 	UnifiedChainUpgradeFile = "upgrade.json" // Chain upgrades
-	ChainSubnetConfigFile   = "subnet.json"  // Subnet/validator config for the chain
+	ChainChainConfigFile    = "chain.json"   // Chain/validator config for the chain
 
 	// Network structure: ~/.lux/networks/<networkName>/runs/<runID>/
 	// This keeps network state persistent across runs

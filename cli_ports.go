@@ -44,5 +44,5 @@ const (
 	MonitoringCloudServerStorageSize = 200 // GB
 	GCPStaticIPPrefix                = "lux-"
 	IPAddressSuffix                  = "-ip"
-	ErrReleasingGCPStaticIP           = "error releasing GCP static IP"
+	ErrReleasingGCPStaticIP          = "error releasing GCP static IP"
 )
