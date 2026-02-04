@@ -40,13 +40,13 @@ var (
 	KVMID           = KeyVMID                         // Alias for KeyVMID
 	ZKVMID          = ids.ID{'z', 'k', 'v', 'm'}
 	GraphVMID       = ids.ID{'g', 'r', 'a', 'p', 'h', 'v', 'm'}
-	DexVMID         = ids.ID{'d', 'e', 'x', 'v', 'm'}       // D-Chain: Decentralized Exchange
-	OracleVMID      = ids.ID{'o', 'r', 'a', 'c', 'l', 'e', 'v', 'm'}   // O-Chain: Oracle
-	OVMID           = OracleVMID                            // Alias for OracleVMID
-	RelayVMID       = ids.ID{'r', 'e', 'l', 'a', 'y', 'v', 'm'}       // R-Chain: Relay
-	RVMID           = RelayVMID                             // Alias for RelayVMID
+	DexVMID         = ids.ID{'d', 'e', 'x', 'v', 'm'}                          // D-Chain: Decentralized Exchange
+	OracleVMID      = ids.ID{'o', 'r', 'a', 'c', 'l', 'e', 'v', 'm'}           // O-Chain: Oracle
+	OVMID           = OracleVMID                                               // Alias for OracleVMID
+	RelayVMID       = ids.ID{'r', 'e', 'l', 'a', 'y', 'v', 'm'}                // R-Chain: Relay
+	RVMID           = RelayVMID                                                // Alias for RelayVMID
 	IdentityVMID    = ids.ID{'i', 'd', 'e', 'n', 't', 'i', 't', 'y', 'v', 'm'} // I-Chain: Identity
-	IVMID           = IdentityVMID                          // Alias for IdentityVMID
+	IVMID           = IdentityVMID                                             // Alias for IdentityVMID
 )
 
 // VMName returns the name of the VM with the provided ID. If a human readable
