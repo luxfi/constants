@@ -124,17 +124,17 @@ const (
 	LocalAPIEndpoint = "http://127.0.0.1:9630"
 
 	// TestnetAPIEndpoint is the Lux testnet API endpoint
-	TestnetAPIEndpoint = "https://api.lux.network/testnet"
+	TestnetAPIEndpoint = "https://api.lux-test.network"
 
 	// MainnetAPIEndpoint is the Lux mainnet API endpoint
-	MainnetAPIEndpoint = "https://api.lux.network/mainnet"
+	MainnetAPIEndpoint = "https://api.lux.network"
 )
 
 // WebSocket endpoints
 const (
 	LocalWSEndpoint   = "ws://127.0.0.1:9630/ext/bc/C/ws"
-	TestnetWSEndpoint = "wss://api.lux.network/testnet/ext/bc/C/ws"
-	MainnetWSEndpoint = "wss://api.lux.network/mainnet/ext/bc/C/ws"
+	TestnetWSEndpoint = "wss://api.lux-test.network/ext/bc/C/ws"
+	MainnetWSEndpoint = "wss://api.lux.network/ext/bc/C/ws"
 )
 
 // Default ports

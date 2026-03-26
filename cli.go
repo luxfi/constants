@@ -8,8 +8,8 @@ import "time"
 // CLI and operational constants (extends paths.go)
 const (
 	// Devnet endpoint
-	DevnetAPIEndpoint = "https://api.lux.network/devnet"
-	DevnetWSEndpoint  = "wss://api.lux.network/devnet/ext/bc/C/ws"
+	DevnetAPIEndpoint = "https://api.lux-dev.network"
+	DevnetWSEndpoint  = "wss://api.lux-dev.network/ext/bc/C/ws"
 
 	// Local network configuration
 	LocalNetworkID          = CustomID // 1337 - same as CustomID
