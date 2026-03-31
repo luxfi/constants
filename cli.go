@@ -7,11 +7,18 @@ import "time"
 
 // CLI and operational constants (extends paths.go)
 const (
-	// Devnet endpoint
-	DevnetAPIEndpoint = "https://api.lux-dev.network"
-	DevnetWSEndpoint  = "wss://api.lux-dev.network/ext/bc/C/ws"
+	// Remote network API endpoints
+	// Each network has: api.lux{-suffix}.network for HTTP, wss.lux{-suffix}.network for WebSocket
+	MainnetAPIEndpoint = "https://api.lux.network"
+	MainnetWSEndpoint  = "wss://wss.lux.network"
+	TestnetAPIEndpoint = "https://api.lux-test.network"
+	TestnetWSEndpoint  = "wss://wss.lux-test.network"
+	DevnetAPIEndpoint  = "https://api.lux-dev.network"
+	DevnetWSEndpoint   = "wss://wss.lux-dev.network"
 
-	// Local network configuration
+	// Local network (single-node dev mode or 5-node localnet)
+	LocalAPIEndpoint        = "http://127.0.0.1:9630"
+	LocalWSEndpoint         = "ws://127.0.0.1:9630/ext/bc/C/ws"
 	LocalNetworkID          = LocalID // 1337
 	NetrunnerLocalNetworkID = LocalID // 1337
 	LocalNetworkNumNodes    = 5

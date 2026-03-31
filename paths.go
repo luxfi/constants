@@ -118,24 +118,12 @@ const (
 	UpgradeBytesLockExtension = ".lock"
 )
 
-// API endpoints
-const (
-	// LocalAPIEndpoint is the default local node API endpoint
-	LocalAPIEndpoint = "http://127.0.0.1:9630"
-
-	// TestnetAPIEndpoint is the Lux testnet API endpoint
-	TestnetAPIEndpoint = "https://api.lux-test.network"
-
-	// MainnetAPIEndpoint is the Lux mainnet API endpoint
-	MainnetAPIEndpoint = "https://api.lux.network"
-)
-
-// WebSocket endpoints
-const (
-	LocalWSEndpoint   = "ws://127.0.0.1:9630/ext/bc/C/ws"
-	TestnetWSEndpoint = "wss://api.lux-test.network/ext/bc/C/ws"
-	MainnetWSEndpoint = "wss://api.lux.network/ext/bc/C/ws"
-)
+// API + WebSocket endpoints are defined in cli.go (single source of truth).
+// Pattern:
+//   mainnet: api.lux.network / wss.lux.network
+//   testnet: api.lux-test.network / wss.lux-test.network
+//   devnet:  api.lux-dev.network / wss.lux-dev.network
+//   local:   127.0.0.1:9650
 
 // Default ports
 const (
