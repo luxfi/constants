@@ -53,8 +53,8 @@ const (
 	MainnetHRP  = "lux"   // P-lux1..., X-lux1...
 	TestnetHRP  = "test"  // P-test1..., X-test1...
 	DevnetHRP   = "dev"   // P-dev1..., X-dev1...
-	LocalHRP    = "local" // P-local1..., X-local1...
-	CustomHRP   = LocalHRP // deprecated: use LocalHRP
+	LocalHRP    = "local"  // P-local1..., X-local1... (network 1337)
+	CustomHRP   = "custom" // P-custom1..., X-custom1... (any other network ID)
 	UnitTestHRP = "testing"
 )
 
@@ -139,7 +139,7 @@ func GetHRP(networkID uint32) string {
 	if hrp, ok := NetworkIDToHRP[networkID]; ok {
 		return hrp
 	}
-	return "custom" // fallback for unknown/custom network IDs
+	return CustomHRP // fallback for unknown/custom network IDs (not 1/2/3/1337)
 }
 
 // NetworkName returns a human readable name for the network with
