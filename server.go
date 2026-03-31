@@ -9,7 +9,7 @@ import "time"
 // Each network type has dedicated ports to allow simultaneous operation
 // All 4 networks (mainnet, testnet, devnet, custom) can run in parallel
 // - mainnet, testnet, devnet: proper public networks (can run locally with validators)
-// - custom: for custom local development with chainID 1337
+// - local: for local development with chainID 1337 ("custom" is deprecated alias)
 // Port scheme: aligned with chain IDs (8368-8371 for gRPC, 8378-8381 for gateway)
 const (
 	// gRPC server ports (lux-server) - aligned with chain ID pattern
@@ -20,9 +20,9 @@ const (
 	GRPCPortDev     = 8546 // dev mode gRPC server (Anvil-compatible, HTTP on 8545)
 
 	// Aliases for backward compatibility
-	// "local" is deprecated, use "custom" instead
-	GRPCPortLocal        = GRPCPortCustom        // deprecated: use GRPCPortCustom
-	GRPCGatewayPortLocal = GRPCGatewayPortCustom // deprecated: use GRPCGatewayPortCustom
+	// "custom" is deprecated, use "local" instead
+	GRPCPortLocal        = GRPCPortCustom        // canonical; GRPCPortCustom is the deprecated alias
+	GRPCGatewayPortLocal = GRPCGatewayPortCustom // canonical; GRPCGatewayPortCustom is the deprecated alias
 
 	// Gateway ports - offset by 10 from gRPC
 	GRPCGatewayPortTestnet = 8378 // testnet gateway
@@ -68,7 +68,7 @@ func GetGRPCPorts(networkType string) NetworkGRPCPorts {
 		return NetworkGRPCPorts{Server: GRPCPortDevnet, Gateway: GRPCGatewayPortDevnet}
 	case "dev":
 		return NetworkGRPCPorts{Server: GRPCPortDev, Gateway: GRPCGatewayPortDev}
-	case "custom", "local": // "local" is deprecated alias for "custom"
+	case "local", "custom": // "custom" is deprecated alias for "local"
 		return NetworkGRPCPorts{Server: GRPCPortCustom, Gateway: GRPCGatewayPortCustom}
 	default:
 		// Default to custom ports for unknown network types
@@ -88,7 +88,7 @@ func GetNetworkStateFile(networkType string) string {
 		return "devnet_network_state.json"
 	case "dev":
 		return "dev_network_state.json"
-	case "custom", "local": // "local" is deprecated alias for "custom"
+	case "local", "custom": // "custom" is deprecated alias for "local"
 		return "custom_network_state.json"
 	default:
 		return networkType + "_network_state.json"
@@ -144,7 +144,7 @@ func GetNetworkPorts(networkType string) NetworkPorts {
 			NodeBase:  NodePortDev,
 			NetworkID: CustomID, // 1337 for dev mode (Anvil-compatible)
 		}
-	case "custom", "local": // "local" is deprecated alias for "custom"
+	case "local", "custom": // "custom" is deprecated alias for "local"
 		return NetworkPorts{
 			GRPC:      GRPCPortCustom,
 			Gateway:   GRPCGatewayPortCustom,
