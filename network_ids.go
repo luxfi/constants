@@ -17,41 +17,44 @@ import (
 const (
 	// Network IDs (P-Chain) - these identify the PRIMARY NETWORK
 	// mainnet, testnet, devnet: proper public networks (can run locally with validators)
-	// custom: for custom local development with chainID 1337
-	MainnetID  uint32 = 1
-	TestnetID  uint32 = 2
-	DevnetID   uint32 = 3
-	CustomID   uint32 = 1337 // custom local development network
+	// Network IDs (P-Chain) — identify the primary network
+	MainnetID  uint32 = 1    // Production
+	TestnetID  uint32 = 2    // Staging
+	DevnetID   uint32 = 3    // Development
+	LocalID    uint32 = 1337 // Local single/multi-node dev
 	UnitTestID uint32 = 369
 
-	// Backwards compatibility aliases (deprecated - use MainnetID, TestnetID, CustomID)
+	// Backward compat aliases
 	LuxMainnetID = MainnetID
 	LuxTestnetID = TestnetID
-	LocalID      = CustomID
+	CustomID     = LocalID // deprecated: use LocalID
 
-	// Chain IDs (C-Chain EVM) - these identify the EVM chain for wallets/dApps
+	// Chain IDs (C-Chain EVM) — for wallets/dApps
 	MainnetChainID uint32 = 96369
 	TestnetChainID uint32 = 96368
 	DevnetChainID  uint32 = 96370
-	CustomChainID  uint32 = 1337
+	LocalChainID   uint32 = 1337
+	CustomChainID  = LocalChainID // deprecated: use LocalChainID
 
-	// Q-Chain Network IDs (Quantum-resistant chain)
-	QChainMainnetID uint32 = 36963 // Q-Chain mainnet
-	QChainTestnetID uint32 = 36962 // Q-Chain testnet
+	// Q-Chain Network IDs
+	QChainMainnetID uint32 = 36963
+	QChainTestnetID uint32 = 36962
 
 	// Network name strings
 	MainnetName  = "mainnet"
 	TestnetName  = "testnet"
 	DevnetName   = "devnet"
-	CustomName   = "custom" // for custom local development
+	LocalName    = "local"
+	CustomName   = LocalName // deprecated: use LocalName
 	UnitTestName = "testing"
 
 	// HRP (Human Readable Part) for bech32 addresses
-	// Used to format P-chain and X-chain addresses like P-lux1..., X-test1...
-	MainnetHRP  = "lux"    // lux1... for mainnet
-	TestnetHRP  = "test"   // test1... for testnet
-	DevnetHRP   = "dev"    // dev1... for devnet
-	CustomHRP   = "custom" // custom1... for custom local development
+	// Determines address prefix: P-lux1..., X-test1..., P-local1...
+	MainnetHRP  = "lux"   // P-lux1..., X-lux1...
+	TestnetHRP  = "test"  // P-test1..., X-test1...
+	DevnetHRP   = "dev"   // P-dev1..., X-dev1...
+	LocalHRP    = "local" // P-local1..., X-local1...
+	CustomHRP   = LocalHRP // deprecated: use LocalHRP
 	UnitTestHRP = "testing"
 )
 
@@ -76,12 +79,11 @@ var (
 	DChainID = ids.DChainID // D-Chain: 11111111111111111111111111111111D (DEX)
 
 	// NetworkIDToNetworkName maps network IDs to human-readable names
-	// Note: CustomID == CustomChainID (1337), so only one entry needed
 	NetworkIDToNetworkName = map[uint32]string{
-		MainnetID:      MainnetName,
-		TestnetID:      TestnetName,
-		DevnetID:       DevnetName,
-		CustomID:       CustomName, // also covers CustomChainID (same value: 1337)
+		MainnetID:      MainnetName, // 1
+		TestnetID:      TestnetName, // 2
+		DevnetID:       DevnetName,  // 3
+		LocalID:        LocalName,   // 1337
 		UnitTestID:     UnitTestName,
 		MainnetChainID: MainnetName,
 		TestnetChainID: TestnetName,
@@ -93,18 +95,19 @@ var (
 		MainnetName:  MainnetID,
 		TestnetName:  TestnetID,
 		DevnetName:   DevnetID,
-		CustomName:   CustomID,
+		LocalName:    LocalID,
+		"custom":     LocalID, // backward compat
 		UnitTestName: UnitTestID,
 	}
 
-	// NetworkIDToHRP maps network IDs to bech32 HRP (Human Readable Part)
-	// This determines the address prefix: P-lux1..., P-test1..., P-custom1...
-	// Note: CustomID == CustomChainID (1337), so only one entry needed
+	// NetworkIDToHRP maps network IDs to bech32 address prefix
+	// 1 → P-lux1..., 2 → P-test1..., 3 → P-dev1..., 1337 → P-local1...
+	// Unknown network IDs fall back to "custom" HRP
 	NetworkIDToHRP = map[uint32]string{
-		MainnetID:      MainnetHRP,
-		TestnetID:      TestnetHRP,
-		DevnetID:       DevnetHRP,
-		CustomID:       CustomHRP, // also covers CustomChainID (same value: 1337)
+		MainnetID:      MainnetHRP,  // lux
+		TestnetID:      TestnetHRP,  // test
+		DevnetID:       DevnetHRP,   // dev
+		LocalID:        LocalHRP,    // local
 		UnitTestID:     UnitTestHRP,
 		MainnetChainID: MainnetHRP,
 		TestnetChainID: TestnetHRP,
@@ -116,7 +119,8 @@ var (
 		MainnetHRP:  MainnetID,
 		TestnetHRP:  TestnetID,
 		DevnetHRP:   DevnetID,
-		CustomHRP:   CustomID,
+		LocalHRP:    LocalID,
+		"custom":    LocalID, // backward compat
 		UnitTestHRP: UnitTestID,
 	}
 
@@ -135,7 +139,7 @@ func GetHRP(networkID uint32) string {
 	if hrp, ok := NetworkIDToHRP[networkID]; ok {
 		return hrp
 	}
-	return CustomHRP // fallback to custom for unknown networks
+	return "custom" // fallback for unknown/custom network IDs
 }
 
 // NetworkName returns a human readable name for the network with
