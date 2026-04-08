@@ -38,9 +38,8 @@ const (
 	DevnetChainID  uint32 = 96370
 	LocalChainID uint32 = 31337 // EVM chain ID for localnet (Anvil convention)
 
-	// Q-Chain Network IDs
-	QChainMainnetID uint32 = 36963
-	QChainTestnetID uint32 = 36962
+	// Q-Chain shares the primary network ID (1/2/3/1337).
+	// No separate network IDs — Q-Chain is a primary-network chain like P, X, C.
 
 	// Network name strings
 	MainnetName  = "mainnet"
