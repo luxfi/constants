@@ -24,17 +24,19 @@ const (
 	LocalID    uint32 = 1337 // Local single/multi-node dev
 	UnitTestID uint32 = 369
 
-	// Backward compat aliases
+	// Aliases
 	LuxMainnetID = MainnetID
 	LuxTestnetID = TestnetID
-	CustomID     = LocalID // deprecated: use LocalID
+
+	// CustomID means any network ID not in {1, 2, 3, 1337}.
+	// Requires --genesis-file to provide configuration.
+	CustomID uint32 = 0
 
 	// Chain IDs (C-Chain EVM) — for wallets/dApps
 	MainnetChainID uint32 = 96369
 	TestnetChainID uint32 = 96368
 	DevnetChainID  uint32 = 96370
-	LocalChainID   uint32 = 1337
-	CustomChainID  = LocalChainID // deprecated: use LocalChainID
+	LocalChainID uint32 = 31337 // EVM chain ID for localnet (Anvil convention)
 
 	// Q-Chain Network IDs
 	QChainMainnetID uint32 = 36963
