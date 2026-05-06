@@ -45,8 +45,8 @@ const (
 	MainnetName  = "mainnet"
 	TestnetName  = "testnet"
 	DevnetName   = "devnet"
-	LocalName    = "local"
-	CustomName   = LocalName // deprecated: use LocalName
+	LocalName    = "local"  // canonical local dev (1337)
+	CustomName   = "custom" // any user-defined network outside well-known IDs
 	UnitTestName = "testing"
 
 	// HRP (Human Readable Part) for bech32 addresses
@@ -79,49 +79,60 @@ var (
 	KChainID = ids.KChainID // K-Chain: 11111111111111111111111111111111K (KMS)
 	DChainID = ids.DChainID // D-Chain: 11111111111111111111111111111111D (DEX)
 
-	// NetworkIDToNetworkName maps network IDs to human-readable names
+	// NetworkIDToNetworkName maps network IDs to human-readable names.
+	// CustomID (0) is the sentinel for "any user-defined network" and
+	// gets the name "custom" — addresses on such a network look like
+	// `X-custom1...`, `P-custom1...`. Any unknown ID also falls back to
+	// CustomName via NetworkName().
 	NetworkIDToNetworkName = map[uint32]string{
 		MainnetID:      MainnetName, // 1
 		TestnetID:      TestnetName, // 2
 		DevnetID:       DevnetName,  // 3
 		LocalID:        LocalName,   // 1337
+		CustomID:       CustomName,  // 0 — user-defined sentinel
 		UnitTestID:     UnitTestName,
 		MainnetChainID: MainnetName,
 		TestnetChainID: TestnetName,
 		DevnetChainID:  DevnetName,
 	}
 
-	// NetworkNameToNetworkID maps names to network IDs
+	// NetworkNameToNetworkID maps names to network IDs.
 	NetworkNameToNetworkID = map[string]uint32{
 		MainnetName:  MainnetID,
 		TestnetName:  TestnetID,
 		DevnetName:   DevnetID,
 		LocalName:    LocalID,
-		"custom":     LocalID, // backward compat
+		CustomName:   CustomID,
 		UnitTestName: UnitTestID,
 	}
 
-	// NetworkIDToHRP maps network IDs to bech32 address prefix
-	// 1 → P-lux1..., 2 → P-test1..., 3 → P-dev1..., 1337 → P-local1...
-	// Unknown network IDs fall back to "custom" HRP
+	// NetworkIDToHRP maps network IDs to bech32 address prefix.
+	// 1 → P-lux1..., 2 → P-test1..., 3 → P-dev1..., 1337 → P-local1...,
+	// 0 (or any unknown ID) → P-custom1... via GetHRP fallback.
 	NetworkIDToHRP = map[uint32]string{
 		MainnetID:      MainnetHRP,  // lux
 		TestnetID:      TestnetHRP,  // test
 		DevnetID:       DevnetHRP,   // dev
 		LocalID:        LocalHRP,    // local
+		CustomID:       CustomHRP,   // custom
 		UnitTestID:     UnitTestHRP,
 		MainnetChainID: MainnetHRP,
 		TestnetChainID: TestnetHRP,
 		DevnetChainID:  DevnetHRP,
 	}
 
-	// NetworkHRPToNetworkID maps HRP back to network ID
+	// NetworkHRPToNetworkID maps HRP back to network ID.
+	// "custom" maps to CustomID (0); user-supplied custom networks with
+	// IDs other than 0 still encode addresses with the "custom" HRP, so
+	// reverse-mapping any "custom"-prefixed address back to a numeric
+	// ID requires the network ID to be specified out-of-band (genesis
+	// file, RPC parameter, etc.) since the HRP itself is not unique.
 	NetworkHRPToNetworkID = map[string]uint32{
 		MainnetHRP:  MainnetID,
 		TestnetHRP:  TestnetID,
 		DevnetHRP:   DevnetID,
 		LocalHRP:    LocalID,
-		"custom":    LocalID, // backward compat
+		CustomHRP:   CustomID,
 		UnitTestHRP: UnitTestID,
 	}
 
