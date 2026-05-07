@@ -146,19 +146,46 @@ var (
 	ErrUnknownChain     = errors.New("unknown chain name")
 )
 
-// GetHRP returns the Human-Readable-Part of bech32 addresses for a networkID
+// IsCustom reports whether the networkID falls outside the well-known
+// {Mainnet, Testnet, Devnet, Local, UnitTest, Mainnet/Testnet/Devnet
+// chainID} set — i.e. it is a user-defined "custom" primary network
+// (e.g. a private testnet on ID 42, or the explicit CustomID sentinel
+// of 0). Custom networks use the "custom" HRP, so addresses on them
+// look like P-custom1..., X-custom1...
+func IsCustom(networkID uint32) bool {
+	switch networkID {
+	case MainnetID, TestnetID, DevnetID, LocalID, UnitTestID,
+		MainnetChainID, TestnetChainID, DevnetChainID:
+		return false
+	}
+	return true
+}
+
+// GetHRP returns the Human-Readable-Part of bech32 addresses for a
+// networkID. Falls back to CustomHRP for any non-well-known ID, so
+// users running a private network on, say, ID 42 get P-custom1...
+// addresses without having to register their ID anywhere.
 func GetHRP(networkID uint32) string {
 	if hrp, ok := NetworkIDToHRP[networkID]; ok {
 		return hrp
 	}
-	return CustomHRP // fallback for unknown/custom network IDs (not 1/2/3/1337)
+	return CustomHRP
 }
 
 // NetworkName returns a human readable name for the network with
-// ID [networkID]
+// ID [networkID]. Well-known IDs return their canonical name
+// ("mainnet", "testnet", "devnet", "local", "custom"). Any other
+// non-well-known ID returns "network-<id>" so two distinct user
+// networks on different IDs remain distinguishable in logs.
 func NetworkName(networkID uint32) string {
 	if name, exists := NetworkIDToNetworkName[networkID]; exists {
 		return name
+	}
+	if IsCustom(networkID) {
+		// Non-zero custom IDs include the numeric suffix so they're
+		// distinguishable in logs / RPC output. The CustomID sentinel
+		// (0) is already in the table above and returns plain "custom".
+		return fmt.Sprintf("network-%d", networkID)
 	}
 	return fmt.Sprintf("network-%d", networkID)
 }
