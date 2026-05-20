@@ -48,14 +48,16 @@ var (
 	IdentityVMID    = ids.ID{'i', 'd', 'e', 'n', 't', 'i', 't', 'y', 'v', 'm'} // I-Chain: Identity
 	IVMID           = IdentityVMID                                             // Alias for IdentityVMID
 
-	// X_ASSET_ID is the canonical LUX asset ID across all chains.
-	// Deterministic constant so the asset is independent of X-Chain genesis
-	// bytes hash — enables X-Chain to be optional (e.g. P-only L2s).
-	// Backwards-compatible with the test genesis fixture in
-	// vms/platformvm/genesis/genesistest/genesis.go.
-	X_ASSET_ID = ids.ID{'l', 'u', 'x', ' ', 'a', 's', 's', 'e', 't', ' ', 'i', 'd'}
-	// LUXAssetID is the user-facing alias for X_ASSET_ID.
-	LUXAssetID = X_ASSET_ID
+	// UTXO_ASSET_ID is the canonical LUX asset ID used by every UTXO-based
+	// chain (P-Chain and X-Chain). It is a deterministic constant so the
+	// asset is independent of any specific chain's genesis bytes hash —
+	// this lets X-Chain become optional (e.g. P-only L2s) while keeping
+	// P-Chain stake/UTXO references stable.
+	UTXO_ASSET_ID = ids.ID{'l', 'u', 'x', ' ', 'a', 's', 's', 'e', 't', ' ', 'i', 'd'}
+	// LUXAssetID is the user-facing alias for UTXO_ASSET_ID.
+	LUXAssetID = UTXO_ASSET_ID
+	// X_ASSET_ID is a deprecated alias kept for transition; use UTXO_ASSET_ID.
+	X_ASSET_ID = UTXO_ASSET_ID
 )
 
 // VMName returns the name of the VM with the provided ID. If a human readable
