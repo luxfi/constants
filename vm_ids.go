@@ -47,6 +47,15 @@ var (
 	RVMID           = RelayVMID                                                // Alias for RelayVMID
 	IdentityVMID    = ids.ID{'i', 'd', 'e', 'n', 't', 'i', 't', 'y', 'v', 'm'} // I-Chain: Identity
 	IVMID           = IdentityVMID                                             // Alias for IdentityVMID
+
+	// X_ASSET_ID is the canonical LUX asset ID across all chains.
+	// Deterministic constant so the asset is independent of X-Chain genesis
+	// bytes hash — enables X-Chain to be optional (e.g. P-only L2s).
+	// Backwards-compatible with the test genesis fixture in
+	// vms/platformvm/genesis/genesistest/genesis.go.
+	X_ASSET_ID = ids.ID{'l', 'u', 'x', ' ', 'a', 's', 's', 'e', 't', ' ', 'i', 'd'}
+	// LUXAssetID is the user-facing alias for X_ASSET_ID.
+	LUXAssetID = X_ASSET_ID
 )
 
 // VMName returns the name of the VM with the provided ID. If a human readable
