@@ -67,17 +67,23 @@ var (
 	X_ASSET_ID = UTXO_ASSET_ID
 )
 
-// LUXAssetIDFor returns the network-scoped LUX asset ID. Domain-separates by
-// networkID so the same address bytes on two networks own UTXOs with distinct
-// asset IDs (prevents cross-network UTXO accounting collapse for naive
-// indexers/wallets that key balance on AssetID alone).
+// UTXOAssetIDFor returns the network-scoped primary UTXO asset ID used by
+// P-Chain and X-Chain. Domain-separates by networkID so the same address
+// bytes on two networks own UTXOs with distinct asset IDs (prevents
+// cross-network UTXO accounting collapse for naive indexers/wallets that
+// key balance on AssetID alone).
 //
 // Mainnet (networkID=1) returns the legacy literal UTXO_ASSET_ID so existing
 // mainnet state remains valid; all other networks get a hash-derived ID.
 //
 // Layout of the preimage: 12-byte ASCII "lux asset id" || 4-byte big-endian
 // networkID. Hashed with SHA-256 (luxfi/crypto/hash) for a uniform 32-byte ID.
-func LUXAssetIDFor(networkID uint32) ids.ID {
+//
+// The name uses "UTXO" (the technical category) not "LUX" (the brand) so
+// the API stays consistent with UTXO_ASSET_ID and stays brand-neutral —
+// downstream chains (e.g. Partner EVM, Hanzo, Zoo) using this primitive
+// keep their own brand identity.
+func UTXOAssetIDFor(networkID uint32) ids.ID {
 	if networkID == 1 {
 		// Preserve mainnet's existing on-chain state and tooling references.
 		return UTXO_ASSET_ID
@@ -86,6 +92,15 @@ func LUXAssetIDFor(networkID uint32) ids.ID {
 	copy(preimage[:12], "lux asset id")
 	binary.BigEndian.PutUint32(preimage[12:], networkID)
 	return hash.ComputeHash256Array(preimage[:])
+}
+
+// LUXAssetIDFor is a deprecated alias for UTXOAssetIDFor kept for transition.
+// Use UTXOAssetIDFor — the asset is the primary UTXO asset of the network,
+// the LUX brand is incidental.
+//
+// Deprecated: use UTXOAssetIDFor.
+func LUXAssetIDFor(networkID uint32) ids.ID {
+	return UTXOAssetIDFor(networkID)
 }
 
 // VMName returns the name of the VM with the provided ID. If a human readable
