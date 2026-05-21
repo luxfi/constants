@@ -3,6 +3,7 @@ module github.com/luxfi/constants
 go 1.26.3
 
 require (
+	github.com/luxfi/crypto v1.19.6
 	github.com/luxfi/geth v1.16.69
 	github.com/luxfi/ids v1.2.9
 	github.com/luxfi/math v1.2.2
@@ -10,13 +11,11 @@ require (
 )
 
 require (
-	github.com/ProjectZKM/Ziren/crates/go-runtime/zkvm_runtime v0.0.0-20260311194731-d5b7577c683d // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.4.1 // indirect
 	github.com/holiman/uint256 v1.3.2 // indirect
-	github.com/luxfi/accel v1.0.7 // indirect
+	github.com/luxfi/accel v1.1.0 // indirect
 	github.com/luxfi/cache v1.1.0 // indirect
-	github.com/luxfi/crypto v1.19.0 // indirect
 	github.com/luxfi/math/big v0.1.0 // indirect
 	github.com/luxfi/mock v0.1.0 // indirect
 	github.com/luxfi/sampler v1.0.0 // indirect
