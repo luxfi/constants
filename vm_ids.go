@@ -53,18 +53,13 @@ var (
 	IdentityVMID    = ids.ID{'i', 'd', 'e', 'n', 't', 'i', 't', 'y', 'v', 'm'} // I-Chain: Identity
 	IVMID           = IdentityVMID                                             // Alias for IdentityVMID
 
-	// UTXO_ASSET_ID is the MAINNET (networkID=1) materialization of the LUX
-	// asset ID. Kept as a stable literal for tooling/docs; runtime code MUST
-	// use LUXAssetIDFor(networkID) to get the correct per-network ID and
-	// avoid cross-network UTXO collapse (mainnet+testnet would otherwise
-	// share an asset ID, breaking any wallet/indexer that keys balance
-	// by AssetID alone).
+	// UTXO_ASSET_ID is the MAINNET (networkID=1) materialization of the
+	// primary UTXO asset ID. Kept as a stable literal for tooling/docs;
+	// runtime code MUST use UTXOAssetIDFor(networkID) to get the correct
+	// per-network ID and avoid cross-network UTXO collapse (mainnet+testnet
+	// would otherwise share an asset ID, breaking any wallet/indexer that
+	// keys balance by AssetID alone).
 	UTXO_ASSET_ID = ids.ID{'l', 'u', 'x', ' ', 'a', 's', 's', 'e', 't', ' ', 'i', 'd'}
-	// LUXAssetID is the mainnet alias for UTXO_ASSET_ID. Use LUXAssetIDFor
-	// at runtime when you have a networkID.
-	LUXAssetID = UTXO_ASSET_ID
-	// X_ASSET_ID is a deprecated alias kept for transition; use LUXAssetIDFor.
-	X_ASSET_ID = UTXO_ASSET_ID
 )
 
 // UTXOAssetIDFor returns the network-scoped primary UTXO asset ID used by
@@ -81,7 +76,7 @@ var (
 //
 // The name uses "UTXO" (the technical category) not "LUX" (the brand) so
 // the API stays consistent with UTXO_ASSET_ID and stays brand-neutral —
-// downstream chains (e.g. Partner EVM, Hanzo, Zoo) using this primitive
+// downstream chains (e.g. Hanzo, Zoo, regulated EVM L1s) using this primitive
 // keep their own brand identity.
 func UTXOAssetIDFor(networkID uint32) ids.ID {
 	if networkID == 1 {
@@ -92,15 +87,6 @@ func UTXOAssetIDFor(networkID uint32) ids.ID {
 	copy(preimage[:12], "lux asset id")
 	binary.BigEndian.PutUint32(preimage[12:], networkID)
 	return hash.ComputeHash256Array(preimage[:])
-}
-
-// LUXAssetIDFor is a deprecated alias for UTXOAssetIDFor kept for transition.
-// Use UTXOAssetIDFor — the asset is the primary UTXO asset of the network,
-// the LUX brand is incidental.
-//
-// Deprecated: use UTXOAssetIDFor.
-func LUXAssetIDFor(networkID uint32) ids.ID {
-	return UTXOAssetIDFor(networkID)
 }
 
 // VMName returns the name of the VM with the provided ID. If a human readable
