@@ -36,7 +36,7 @@ const (
 	MainnetChainID uint32 = 96369
 	TestnetChainID uint32 = 96368
 	DevnetChainID  uint32 = 96370
-	LocalChainID uint32 = 31337 // EVM chain ID for localnet (Anvil convention)
+	LocalChainID   uint32 = 31337 // EVM chain ID for localnet (Anvil convention)
 
 	// Q-Chain shares the primary network ID (1/2/3/1337).
 	// No separate network IDs — Q-Chain is a primary-network chain like P, X, C.
@@ -51,9 +51,9 @@ const (
 
 	// HRP (Human Readable Part) for bech32 addresses
 	// Determines address prefix: P-lux1..., X-test1..., P-local1...
-	MainnetHRP  = "lux"   // P-lux1..., X-lux1...
-	TestnetHRP  = "test"  // P-test1..., X-test1...
-	DevnetHRP   = "dev"   // P-dev1..., X-dev1...
+	MainnetHRP  = "lux"    // P-lux1..., X-lux1...
+	TestnetHRP  = "test"   // P-test1..., X-test1...
+	DevnetHRP   = "dev"    // P-dev1..., X-dev1...
 	LocalHRP    = "local"  // P-local1..., X-local1... (network 1337)
 	CustomHRP   = "custom" // P-custom1..., X-custom1... (any other network ID)
 	UnitTestHRP = "testing"
@@ -110,11 +110,11 @@ var (
 	// 1 → P-lux1..., 2 → P-test1..., 3 → P-dev1..., 1337 → P-local1...,
 	// 0 (or any unknown ID) → P-custom1... via GetHRP fallback.
 	NetworkIDToHRP = map[uint32]string{
-		MainnetID:      MainnetHRP,  // lux
-		TestnetID:      TestnetHRP,  // test
-		DevnetID:       DevnetHRP,   // dev
-		LocalID:        LocalHRP,    // local
-		CustomID:       CustomHRP,   // custom
+		MainnetID:      MainnetHRP, // lux
+		TestnetID:      TestnetHRP, // test
+		DevnetID:       DevnetHRP,  // dev
+		LocalID:        LocalHRP,   // local
+		CustomID:       CustomHRP,  // custom
 		UnitTestID:     UnitTestHRP,
 		MainnetChainID: MainnetHRP,
 		TestnetChainID: TestnetHRP,
