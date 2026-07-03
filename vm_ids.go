@@ -18,7 +18,7 @@ const (
 	QuantumVMName   = "quantumvm"   // Q-Chain: Quantum-resistant security
 	AIVMName        = "aivm"        // A-Chain: AI Virtual Machine
 	BridgeVMName    = "bridgevm"    // B-Chain: Bridge/Cross-chain
-	ThresholdVMName = "thresholdvm" // T-Chain: Threshold signatures
+	ThresholdVMName = "thresholdvm" // Shared threshold substrate LIBRARY consumed by M-Chain (MPC) + F-Chain (FHE) per LP-134; NOT a chain
 	KeyVMName       = "keyvm"       // K-Chain: Key Management
 	ZKVMName        = "zkvm"        // Z-Chain: Zero-Knowledge proofs
 	GraphVMName     = "graphvm"     // G-Chain: GraphQL/DGraph unified data layer
