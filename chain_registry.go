@@ -21,8 +21,8 @@ type ChainConfig struct {
 	QChainID ids.ID // Quantum chain - post-quantum cryptography
 	AChainID ids.ID // Attestation chain - oracles, compute attestation
 	BChainID ids.ID // Bridge chain - cross-chain interop
-	MChainID ids.ID // MPC chain - threshold signing / bridge custody (consumes thresholdvm library)
-	FChainID ids.ID // FHE chain - confidential compute / encrypted state (consumes thresholdvm library)
+	MChainID ids.ID // MPC chain - threshold signing / bridge custody (consumes mpcvm library)
+	FChainID ids.ID // FHE chain - confidential compute / encrypted state (consumes mpcvm library)
 	ZChainID ids.ID // ZK chain - zero-knowledge proofs
 	GChainID ids.ID // Graph chain - dgraph
 	KChainID ids.ID // KMS chain - key management
